@@ -7,7 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-@interface MasterViewController : UITableViewController
+#import "SimpleAnnotation.h"
+@interface MasterViewController : UIViewController<MKMapViewDelegate, CLLocationManagerDelegate>{
+    //map
+    IBOutlet MKMapView *myMapView;
+    CLLocationManager *myLocationManager;
+    IBOutlet UILabel *labelLatitude;
+    IBOutlet UILabel *labelLongitude;
+    IBOutlet UILabel *labelTappedLatitude;
+    IBOutlet UILabel *labelTappedLongitude;
+    IBOutlet UIImageView *compassImg;
+    IBOutlet UIView *viewMapBack;
+}
+-(IBAction) addPin;
+
 
 @end

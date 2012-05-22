@@ -14,8 +14,11 @@
 		8D5931D9156C150700F7C33D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5931D8156C150700F7C33D /* main.m */; };
 		8D5931DD156C150700F7C33D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5931DC156C150700F7C33D /* AppDelegate.m */; };
 		8D5931E0156C150700F7C33D /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D5931DE156C150700F7C33D /* MainStoryboard.storyboard */; };
-		8D5931E3156C150700F7C33D /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5931E2156C150700F7C33D /* MasterViewController.m */; };
-		8D5931E6156C150700F7C33D /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5931E5156C150700F7C33D /* DetailViewController.m */; };
+		8D5931F1156C15B300F7C33D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D5931F0156C15B300F7C33D /* MapKit.framework */; };
+		8D5931F3156C181B00F7C33D /* 74-location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D5931F2156C181B00F7C33D /* 74-location@2x.png */; };
+		8D5931F5156C1DB700F7C33D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D5931F4156C1DB600F7C33D /* CoreLocation.framework */; };
+		8D593236156C25FC00F7C33D /* SimpleAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D593235156C25FC00F7C33D /* SimpleAnnotation.m */; };
+		8D59323C156C353300F7C33D /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D59323B156C353300F7C33D /* MasterViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,17 +26,20 @@
 		8D5931CC156C150700F7C33D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8D5931CE156C150700F7C33D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8D5931D0156C150700F7C33D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		8D5931D4156C150700F7C33D /* Place Melody-Info.plist */ = {isa = PBXFileReference; path = "Place Melody-Info.plist"; sourceTree = "<group>"; };
+		8D5931D4156C150700F7C33D /* Place Melody-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Place Melody-Info.plist"; sourceTree = "<group>"; };
 		8D5931D6156C150700F7C33D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8D5931D8156C150700F7C33D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		8D5931DA156C150700F7C33D /* Place Melody-Prefix.pch */ = {isa = PBXFileReference; path = "Place Melody-Prefix.pch"; sourceTree = "<group>"; };
-		8D5931DB156C150700F7C33D /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		8D5931DA156C150700F7C33D /* Place Melody-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Place Melody-Prefix.pch"; sourceTree = "<group>"; };
+		8D5931DB156C150700F7C33D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8D5931DC156C150700F7C33D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8D5931DF156C150700F7C33D /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		8D5931E1156C150700F7C33D /* MasterViewController.h */ = {isa = PBXFileReference; path = MasterViewController.h; sourceTree = "<group>"; };
-		8D5931E2156C150700F7C33D /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		8D5931E4156C150700F7C33D /* DetailViewController.h */ = {isa = PBXFileReference; path = DetailViewController.h; sourceTree = "<group>"; };
-		8D5931E5156C150700F7C33D /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		8D5931E1156C150700F7C33D /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		8D5931F0156C15B300F7C33D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		8D5931F2156C181B00F7C33D /* 74-location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "74-location@2x.png"; sourceTree = "<group>"; };
+		8D5931F4156C1DB600F7C33D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		8D593234156C25FC00F7C33D /* SimpleAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleAnnotation.h; sourceTree = "<group>"; };
+		8D593235156C25FC00F7C33D /* SimpleAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleAnnotation.m; sourceTree = "<group>"; };
+		8D59323B156C353300F7C33D /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +47,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D5931F5156C1DB700F7C33D /* CoreLocation.framework in Frameworks */,
+				8D5931F1156C15B300F7C33D /* MapKit.framework in Frameworks */,
 				8D5931CD156C150700F7C33D /* UIKit.framework in Frameworks */,
 				8D5931CF156C150700F7C33D /* Foundation.framework in Frameworks */,
 				8D5931D1156C150700F7C33D /* CoreGraphics.framework in Frameworks */,
@@ -53,6 +61,8 @@
 		8D5931BD156C150700F7C33D = {
 			isa = PBXGroup;
 			children = (
+				8D5931F4156C1DB600F7C33D /* CoreLocation.framework */,
+				8D5931F0156C15B300F7C33D /* MapKit.framework */,
 				8D5931D2156C150700F7C33D /* Place Melody */,
 				8D5931CB156C150700F7C33D /* Frameworks */,
 				8D5931C9156C150700F7C33D /* Products */,
@@ -84,9 +94,9 @@
 				8D5931DC156C150700F7C33D /* AppDelegate.m */,
 				8D5931DE156C150700F7C33D /* MainStoryboard.storyboard */,
 				8D5931E1156C150700F7C33D /* MasterViewController.h */,
-				8D5931E2156C150700F7C33D /* MasterViewController.m */,
-				8D5931E4156C150700F7C33D /* DetailViewController.h */,
-				8D5931E5156C150700F7C33D /* DetailViewController.m */,
+				8D59323B156C353300F7C33D /* MasterViewController.m */,
+				8D593234156C25FC00F7C33D /* SimpleAnnotation.h */,
+				8D593235156C25FC00F7C33D /* SimpleAnnotation.m */,
 				8D5931D3156C150700F7C33D /* Supporting Files */,
 			);
 			path = "Place Melody";
@@ -95,6 +105,7 @@
 		8D5931D3156C150700F7C33D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8D5931F2156C181B00F7C33D /* 74-location@2x.png */,
 				8D5931D4156C150700F7C33D /* Place Melody-Info.plist */,
 				8D5931D5156C150700F7C33D /* InfoPlist.strings */,
 				8D5931D8156C150700F7C33D /* main.m */,
@@ -155,6 +166,7 @@
 			files = (
 				8D5931D7156C150700F7C33D /* InfoPlist.strings in Resources */,
 				8D5931E0156C150700F7C33D /* MainStoryboard.storyboard in Resources */,
+				8D5931F3156C181B00F7C33D /* 74-location@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,8 +179,8 @@
 			files = (
 				8D5931D9156C150700F7C33D /* main.m in Sources */,
 				8D5931DD156C150700F7C33D /* AppDelegate.m in Sources */,
-				8D5931E3156C150700F7C33D /* MasterViewController.m in Sources */,
-				8D5931E6156C150700F7C33D /* DetailViewController.m in Sources */,
+				8D593236156C25FC00F7C33D /* SimpleAnnotation.m in Sources */,
+				8D59323C156C353300F7C33D /* MasterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +292,7 @@
 				8D5931EB156C150700F7C33D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
