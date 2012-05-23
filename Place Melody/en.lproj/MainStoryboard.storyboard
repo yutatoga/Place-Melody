@@ -50,7 +50,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="ReB-3M-FPO"/>
                                     <barButtonItem systemItem="add" id="7FG-zg-a3g">
                                         <connections>
-                                            <action selector="addPin" destination="Uqq-VM-NXS" id="ucN-Ih-3vI"/>
+                                            <action selector="addPin" destination="Uqq-VM-NXS" id="pF7-6f-5Y7"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="1re-jP-IQL"/>
@@ -76,6 +76,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewController.h"/>
             <relationships>
                 <relationship kind="action" name="addPin"/>
+                <relationship kind="action" name="showMediaPicker"/>
                 <relationship kind="outlet" name="compassImg" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="labelLatitude" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="labelLongitude" candidateClass="UILabel"/>

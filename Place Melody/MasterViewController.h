@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import <CoreLocation/CoreLocation.h>
 
 #import "SimpleAnnotation.h"
-@interface MasterViewController : UIViewController<MKMapViewDelegate, CLLocationManagerDelegate>{
+@interface MasterViewController : UIViewController<MPMediaPickerControllerDelegate, MKMapViewDelegate, CLLocationManagerDelegate>{
     //map
     IBOutlet MKMapView *myMapView;
     CLLocationManager *myLocationManager;
@@ -21,8 +22,10 @@
     IBOutlet UILabel *labelTappedLongitude;
     IBOutlet UIImageView *compassImg;
     IBOutlet UIView *viewMapBack;
+    //ipod
+    MPMusicPlayerController *player;
 }
 -(IBAction) addPin;
-
+-(IBAction) showMediaPicker;
 
 @end

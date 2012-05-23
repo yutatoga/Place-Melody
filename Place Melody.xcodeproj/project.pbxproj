@@ -19,6 +19,8 @@
 		8D5931F5156C1DB700F7C33D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D5931F4156C1DB600F7C33D /* CoreLocation.framework */; };
 		8D593236156C25FC00F7C33D /* SimpleAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D593235156C25FC00F7C33D /* SimpleAnnotation.m */; };
 		8D59323C156C353300F7C33D /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D59323B156C353300F7C33D /* MasterViewController.m */; };
+		8DF31C96156C439D00BD4FDA /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF31C95156C439D00BD4FDA /* MediaPlayer.framework */; };
+		8DF31C99156C5DE900BD4FDA /* 37-circle-x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DF31C98156C5DE900BD4FDA /* 37-circle-x@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		8D593234156C25FC00F7C33D /* SimpleAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleAnnotation.h; sourceTree = "<group>"; };
 		8D593235156C25FC00F7C33D /* SimpleAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleAnnotation.m; sourceTree = "<group>"; };
 		8D59323B156C353300F7C33D /* MasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		8DF31C95156C439D00BD4FDA /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		8DF31C98156C5DE900BD4FDA /* 37-circle-x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37-circle-x@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DF31C96156C439D00BD4FDA /* MediaPlayer.framework in Frameworks */,
 				8D5931F5156C1DB700F7C33D /* CoreLocation.framework in Frameworks */,
 				8D5931F1156C15B300F7C33D /* MapKit.framework in Frameworks */,
 				8D5931CD156C150700F7C33D /* UIKit.framework in Frameworks */,
@@ -61,6 +66,7 @@
 		8D5931BD156C150700F7C33D = {
 			isa = PBXGroup;
 			children = (
+				8DF31C95156C439D00BD4FDA /* MediaPlayer.framework */,
 				8D5931F4156C1DB600F7C33D /* CoreLocation.framework */,
 				8D5931F0156C15B300F7C33D /* MapKit.framework */,
 				8D5931D2156C150700F7C33D /* Place Melody */,
@@ -105,6 +111,7 @@
 		8D5931D3156C150700F7C33D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8DF31C98156C5DE900BD4FDA /* 37-circle-x@2x.png */,
 				8D5931F2156C181B00F7C33D /* 74-location@2x.png */,
 				8D5931D4156C150700F7C33D /* Place Melody-Info.plist */,
 				8D5931D5156C150700F7C33D /* InfoPlist.strings */,
@@ -167,6 +174,7 @@
 				8D5931D7156C150700F7C33D /* InfoPlist.strings in Resources */,
 				8D5931E0156C150700F7C33D /* MainStoryboard.storyboard in Resources */,
 				8D5931F3156C181B00F7C33D /* 74-location@2x.png in Resources */,
+				8DF31C99156C5DE900BD4FDA /* 37-circle-x@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

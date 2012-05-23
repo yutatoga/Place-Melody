@@ -21,6 +21,20 @@
     [super awakeFromNib];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    /*
+    NSLog(@"root view will show");
+    if (pinDropBool) {
+        pinDropBool = false;
+        NSString *hoge = [NSString stringWithString:@"hoge"];
+        [myMapView addAnnotation:
+         [[SimpleAnnotation alloc]initWithLocationCoordinate:CLLocationCoordinate2DMake(myMapView.centerCoordinate.latitude , myMapView.centerCoordinate.longitude)
+                                                       title:[[player nowPlayingItem] valueForProperty:MPMediaItemPropertyTitle]
+                                                    subtitle:[[player nowPlayingItem] valueForProperty:MPMediaItemPropertyAlbumTitle]]];
+    }
+     */
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -28,7 +42,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     //self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    //UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     //self.navigationItem.rightBarButtonItem = addButton;
     
     
@@ -46,6 +60,9 @@
     region.span.longitudeDelta = 0.01;
     
     [myMapView setRegion:region animated:YES];
+    
+    //ipod
+    player = [MPMusicPlayerController iPodMusicPlayer];
 }
 
 - (void)viewDidUnload
@@ -179,22 +196,75 @@
     annotationView.animatesDrop = YES; //このプロパティでアニメーションドロップを設定
     annotationView.canShowCallout = YES; //このプロパティを設定してコールアウト（文字を表示する吹出し）を表示
     annotationView.annotation = annotation; //このメソッドで設定したアノテーションをannotationViewに再追加してreturnで返す
-    UIButton* button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    //UIButton* button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    
+    UIImage *image = [UIImage imageNamed:@"37-circle-x@2x.png"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGRect frame = CGRectMake(0.0, 0.0, image.size.width/2.5, image.size.height/2.5);
+    button.frame = frame;   // match the button's size with the image size
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    
     //[button addTarget:self action:@selector(showDetails:) forControlEvents:UIControlEventTouchUpInside];
     annotationView.rightCalloutAccessoryView = button;
     NSLog(@"PIN DROPPED-----------------------------------------------------------------------------------------");
     return annotationView;
-} 
+}
+
+- (void)mapView:(MKMapView*)mapView 
+ annotationView:(MKAnnotationView*)view 
+calloutAccessoryControlTapped:(UIControl*)control
+{
+    [myMapView removeAnnotation:view.annotation];
+}
 
 - (IBAction)addPin{
+    MPMediaPickerController *picker =
+    [[MPMediaPickerController alloc]
+     initWithMediaTypes: MPMediaTypeAnyAudio]; // 1
+    [picker setDelegate: self]; // 2
+    [picker setAllowsPickingMultipleItems: YES]; // 3
+    picker.prompt =
+    NSLocalizedString (@"Add songs to play",
+                       "Prompt in media item picker");
+    [self presentModalViewController: picker animated: YES]; // 4
     
-    NSString *hoge = [NSString stringWithString:@"hoge"];
+}
+
+#pragma mark -
+#pragma mark picker
+//picker----------------------------------------------------
+- (void) mediaPicker: (MPMediaPickerController *) mediaPicker
+   didPickMediaItems: (MPMediaItemCollection *) collection {
+    [self dismissModalViewControllerAnimated: YES];
+    //[self updatePlayerQueueWithMediaCollection: collection];
+    for(MPMediaItem *item in collection.items){;
+        NSLog(@"title: %@", [item valueForProperty:MPMediaItemPropertyTitle]);
+    };
+    [player setQueueWithItemCollection:collection];
+    //[player play];
     [myMapView addAnnotation:
      [[SimpleAnnotation alloc]initWithLocationCoordinate:CLLocationCoordinate2DMake(myMapView.centerCoordinate.latitude , myMapView.centerCoordinate.longitude)
-                                                    title:hoge
-                                                 subtitle:hoge]];
+                                                   title:[[collection.items objectAtIndex:0] valueForProperty:MPMediaItemPropertyTitle]
+                                                subtitle:[[collection.items objectAtIndex:0] valueForProperty:MPMediaItemPropertyAlbumTitle]
+      ]];
+
     
+}
+- (void) mediaPickerDidCancel: (MPMediaPickerController *) mediaPicker {
+    [self dismissModalViewControllerAnimated: YES];
+}
+
+- (IBAction) showMediaPicker{
     
+    MPMediaPickerController *picker =
+    [[MPMediaPickerController alloc]
+     initWithMediaTypes: MPMediaTypeAnyAudio]; // 1
+    [picker setDelegate: self]; // 2
+    [picker setAllowsPickingMultipleItems: YES]; // 3
+    picker.prompt =
+    NSLocalizedString (@"Add songs to play",
+                       "Prompt in media item picker");
+    [self presentModalViewController: picker animated: YES]; // 4
 }
 
 @end
