@@ -22,6 +22,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    NSLog(@"will appear");
     /*
     NSLog(@"root view will show");
     if (pinDropBool) {
@@ -58,7 +59,8 @@
     MKCoordinateRegion  region = myMapView.region;
     region.span.latitudeDelta = 0.01;
     region.span.longitudeDelta = 0.01;
-    
+    region.center.latitude = myLocationManager.location.coordinate.latitude;
+    region.center.longitude = myLocationManager.location.coordinate.longitude;
     [myMapView setRegion:region animated:YES];
     
     //ipod
@@ -160,17 +162,71 @@
     labelLongitude.text = [NSString stringWithFormat:@"%f", newLocation.coordinate.longitude];
     
     MKCoordinateRegion  region = myMapView.region;
-    region.center.latitude = newLocation.coordinate.latitude;
-    region.center.longitude = newLocation.coordinate.longitude;
+    
+    //avoid go backing to current pos frequently
+    //region.center.latitude = newLocation.coordinate.latitude;
+    //region.center.longitude = newLocation.coordinate.longitude;
+    
+    
     //*should be fix******************************************************************************************************
     //region.span.latitudeDelta = 0.01;
     //region.span.longitudeDelta = 0.01;
     region.span.latitudeDelta = myMapView.region.span.latitudeDelta;
     region.span.longitudeDelta = myMapView.region.span.longitudeDelta;
     NSLog(@"Delta LAT:%f LON :%f", myMapView.region.span.latitudeDelta, myMapView.region.span.longitudeDelta);
-    
     [myMapView setRegion:region animated:YES];
+    
+    //if user's location is within 200m, play pin's music
+    CLLocation *currentLoc = myLocationManager.location;
+    NSSet *visiblePins = [NSSet setWithSet:[myMapView annotationsInMapRect:myMapView.visibleMapRect] ];
+    NSArray *visiblePinsArray = [NSArray arrayWithArray:[visiblePins allObjects]];    
+    
+    NSLog(@"here is ok");
+    for (int i =0; i<visiblePins.count; i++) {
+        if ([currentLoc distanceFromLocation:[ [CLLocation alloc] 
+                                              initWithLatitude:[[visiblePinsArray objectAtIndex:i] coordinate].latitude 
+                                              longitude:[[visiblePinsArray objectAtIndex:i] coordinate].longitude
+                                              ]]< 200) {
+            NSLog(@"PLAY THE PLACE MELODY");
+            //[player play];
+            //search song 
+            MPMediaQuery* query = [MPMediaQuery songsQuery];
+            NSMutableArray *collections = [[NSMutableArray alloc] initWithCapacity:1];
+            //below row user tapped 
+            
+            //for (int i=0; i<query.items.count; i++) {
+                MPMediaPropertyPredicate* pred;
+                pred = [MPMediaPropertyPredicate predicateWithValue:[[[[visiblePinsArray objectAtIndex:i] mediaDictArray]  objectAtIndex:0] objectForKey:@"Title"]
+                                                                     forProperty:MPMediaItemPropertyTitle comparisonType:MPMediaPredicateComparisonEqualTo
+                                                                     ];
+                [query addFilterPredicate:pred];
+                [collections addObjectsFromArray:query.items];
+                [query  removeFilterPredicate:pred];
+            //}
+            
+            
+            
+            /*
+             //above row user tappd (from the index 0)
+             for (int i=0; i<indexPath.row; i++) {
+             MPMediaPropertyPredicate* pred;
+             pred = [MPMediaPropertyPredicate predicateWithValue:[annotationMediaTitle objectAtIndex:i] forProperty:MPMediaItemPropertyTitle comparisonType:MPMediaPredicateComparisonEqualTo];
+             [query addFilterPredicate:pred];
+             [collections addObjectsFromArray:query.items];
+             [query  removeFilterPredicate:pred];
+             } 
+             */
+            
+            NSLog(@"collections:%@", [collections description]);
+            MPMediaItemCollection *finalCollection = [MPMediaItemCollection collectionWithItems:collections];
+            [player setQueueWithItemCollection:finalCollection];
+            [player play];    
+            
+            NSLog(@"%@", [[[[visiblePinsArray objectAtIndex:i] mediaDictArray]  objectAtIndex:0] objectForKey:@"Title"]);            
+        }        
+    }
 }
+
 
 #pragma mark -
 #pragma mark annnotation
@@ -210,6 +266,9 @@
     return annotationView;
 }
 
+
+
+
 - (void)mapView:(MKMapView*)mapView 
  annotationView:(MKAnnotationView*)view 
 calloutAccessoryControlTapped:(UIControl*)control
@@ -228,13 +287,31 @@ calloutAccessoryControlTapped:(UIControl*)control
                        "Prompt in media item picker");
     [self presentModalViewController: picker animated: YES]; // 4
     
+    //debug
+    CLLocation *currentLoc = myLocationManager.location;
+    CLLocation *pinLoc = [[CLLocation alloc] initWithLatitude:myMapView.centerCoordinate.latitude longitude:myMapView.centerCoordinate.longitude];
+    myDistLabel.text = [NSString stringWithFormat:@"Dist: %f meters" , [pinLoc distanceFromLocation:currentLoc]];
 }
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
+    //update distance label
+    NSLog(@"legion did changed");
+    CLLocation *currentLoc = myLocationManager.location;
+    CLLocation *pinLoc = [[CLLocation alloc] initWithLatitude:myMapView.centerCoordinate.latitude longitude:myMapView.centerCoordinate.longitude];
+    double dist = [pinLoc distanceFromLocation:currentLoc];
+    if (dist < 1000) {
+        myDistLabel.text = [NSString stringWithFormat:@" Distance: %i m" , (int)dist];
+    }else{
+        myDistLabel.text = [NSString stringWithFormat:@" Distance: %0.3f km" , dist/1000];
+    }    
+}
+
+
 
 #pragma mark -
 #pragma mark picker
 //picker----------------------------------------------------
-- (void) mediaPicker: (MPMediaPickerController *) mediaPicker
-   didPickMediaItems: (MPMediaItemCollection *) collection {
+- (void) mediaPicker: (MPMediaPickerController *) mediaPicker didPickMediaItems: (MPMediaItemCollection *) collection {
     [self dismissModalViewControllerAnimated: YES];
     //[self updatePlayerQueueWithMediaCollection: collection];
     for(MPMediaItem *item in collection.items){;
@@ -242,14 +319,22 @@ calloutAccessoryControlTapped:(UIControl*)control
     };
     [player setQueueWithItemCollection:collection];
     //[player play];
-    [myMapView addAnnotation:
-     [[SimpleAnnotation alloc]initWithLocationCoordinate:CLLocationCoordinate2DMake(myMapView.centerCoordinate.latitude , myMapView.centerCoordinate.longitude)
-                                                   title:[[collection.items objectAtIndex:0] valueForProperty:MPMediaItemPropertyTitle]
-                                                subtitle:[[collection.items objectAtIndex:0] valueForProperty:MPMediaItemPropertyAlbumTitle]
-      ]];
-
-    
+       
+       
+    SimpleAnnotation *myAnnotation = [[SimpleAnnotation alloc]initWithLocationCoordinate:CLLocationCoordinate2DMake(myMapView.centerCoordinate.latitude , myMapView.centerCoordinate.longitude)
+                                                                                   title:[[collection.items objectAtIndex:0] valueForProperty:MPMediaItemPropertyTitle]
+                                                                                subtitle:[[collection.items objectAtIndex:0] valueForProperty:MPMediaItemPropertyAlbumTitle]
+                                      ];
+    //set mediaDictArray
+    NSMutableDictionary* pin = [NSMutableDictionary dictionaryWithObjectsAndKeys: 
+                                   [[collection.items objectAtIndex:0] valueForProperty:MPMediaItemPropertyTitle], @"Title", 
+                                   [[collection.items objectAtIndex:0] valueForProperty:MPMediaItemPropertyArtist], @"Artist",
+                                   [[collection.items objectAtIndex:0] valueForProperty:MPMediaItemPropertyAlbumTitle], @"Album",
+                                   nil];
+    [myAnnotation setMediaDictArray:[NSArray arrayWithObject:pin]];
+    [myMapView addAnnotation:myAnnotation];
 }
+
 - (void) mediaPickerDidCancel: (MPMediaPickerController *) mediaPicker {
     [self dismissModalViewControllerAnimated: YES];
 }

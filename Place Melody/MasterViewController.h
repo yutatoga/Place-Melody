@@ -24,6 +24,8 @@
     IBOutlet UIView *viewMapBack;
     //ipod
     MPMusicPlayerController *player;
+    //debug
+    IBOutlet UILabel *myDistLabel;
 }
 -(IBAction) addPin;
 -(IBAction) showMediaPicker;

@@ -11,7 +11,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="10" sceneMemberID="firstResponder"/>
                 <navigationController id="3" sceneMemberID="viewController">
-                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackOpaque" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" barStyle="blackOpaque" id="4">
@@ -31,20 +31,20 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rLQ-ac-For" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="Uqq-VM-NXS" customClass="MasterViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NWA-Sb-Pkz">
-                        <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="odo-lO-0Pj">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="372"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="74-location@2x.png" id="HWI-b2-gm2">
-                                <rect key="frame" x="150" y="175" width="20" height="20"/>
+                                <rect key="frame" x="150" y="176" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
                             </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="RJi-n5-Pa6">
-                                <rect key="frame" x="0.0" y="392" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="372" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="ReB-3M-FPO"/>
@@ -56,16 +56,25 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="1re-jP-IQL"/>
                                 </items>
                             </toolbar>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="left" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="qpS-VR-Wnm">
+                                <rect key="frame" x="80" y="332" width="160" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Place Melody" id="QDp-I5-iaH"/>
                     <connections>
+                        <outlet property="myDistLabel" destination="qpS-VR-Wnm" id="Udb-O8-oYE"/>
                         <outlet property="myMapView" destination="odo-lO-0Pj" id="26f-LU-7l6"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="464" y="64"/>
+            <point key="canvasLocation" x="435" y="64"/>
         </scene>
     </scenes>
     <resources>
@@ -82,6 +91,7 @@
                 <relationship kind="outlet" name="labelLongitude" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="labelTappedLatitude" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="labelTappedLongitude" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="myDistLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="myMapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="viewMapBack" candidateClass="UIView"/>
             </relationships>
