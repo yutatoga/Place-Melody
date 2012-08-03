@@ -180,13 +180,32 @@
     CLLocation *currentLoc = myLocationManager.location;
     NSSet *visiblePins = [NSSet setWithSet:[myMapView annotationsInMapRect:myMapView.visibleMapRect] ];
     NSArray *visiblePinsArray = [NSArray arrayWithArray:[visiblePins allObjects]];    
-    
-    NSLog(@"here is ok");
-    for (int i =0; i<visiblePins.count; i++) {
+    //check the nearest pin
+    int nearestPinIndex = 0;
+    NSLog(@"here is ok : visiblePins count is: %i", visiblePins.count);
+    if (visiblePins.count != 0) {
+        if (visiblePins.count > 1) {        
+            for (int i= 0; i < visiblePins.count-1; i++) {
+                if ([currentLoc distanceFromLocation:[ [CLLocation alloc] 
+                                                      initWithLatitude:[[visiblePinsArray objectAtIndex:i] coordinate].latitude 
+                                                      longitude:[[visiblePinsArray objectAtIndex:i] coordinate].longitude
+                                                      ]] 
+                    >
+                    [currentLoc distanceFromLocation:[ [CLLocation alloc] 
+                                                      initWithLatitude:[[visiblePinsArray objectAtIndex:i+1] coordinate].latitude 
+                                                      longitude:[[visiblePinsArray objectAtIndex:i+1] coordinate].longitude
+                                                      ]]) {
+                    //if dist[i]<dist[i+1]
+                    //save nearest pin's index
+                    nearestPinIndex = i+1;
+                }
+            }
+        }
+        NSLog(@"nearest index: %d", nearestPinIndex);
         if ([currentLoc distanceFromLocation:[ [CLLocation alloc] 
-                                              initWithLatitude:[[visiblePinsArray objectAtIndex:i] coordinate].latitude 
-                                              longitude:[[visiblePinsArray objectAtIndex:i] coordinate].longitude
-                                              ]]< 200) {
+                                              initWithLatitude:[[visiblePinsArray objectAtIndex:nearestPinIndex] coordinate].latitude 
+                                              longitude:[[visiblePinsArray objectAtIndex:nearestPinIndex] coordinate].longitude
+                                              ]] < 200) {
             NSLog(@"PLAY THE PLACE MELODY");
             //[player play];
             //search song 
@@ -195,13 +214,13 @@
             //below row user tapped 
             
             //for (int i=0; i<query.items.count; i++) {
-                MPMediaPropertyPredicate* pred;
-                pred = [MPMediaPropertyPredicate predicateWithValue:[[[[visiblePinsArray objectAtIndex:i] mediaDictArray]  objectAtIndex:0] objectForKey:@"Title"]
-                                                                     forProperty:MPMediaItemPropertyTitle comparisonType:MPMediaPredicateComparisonEqualTo
-                                                                     ];
-                [query addFilterPredicate:pred];
-                [collections addObjectsFromArray:query.items];
-                [query  removeFilterPredicate:pred];
+            MPMediaPropertyPredicate* pred;
+            pred = [MPMediaPropertyPredicate predicateWithValue:[[[[visiblePinsArray objectAtIndex:nearestPinIndex] mediaDictArray]  objectAtIndex:0] objectForKey:@"Title"]
+                                                    forProperty:MPMediaItemPropertyTitle comparisonType:MPMediaPredicateComparisonEqualTo
+                    ];
+            [query addFilterPredicate:pred];
+            [collections addObjectsFromArray:query.items];
+            [query  removeFilterPredicate:pred];
             //}
             
             
@@ -220,11 +239,16 @@
             NSLog(@"collections:%@", [collections description]);
             MPMediaItemCollection *finalCollection = [MPMediaItemCollection collectionWithItems:collections];
             [player setQueueWithItemCollection:finalCollection];
-            [player play];    
-            
-            NSLog(@"%@", [[[[visiblePinsArray objectAtIndex:i] mediaDictArray]  objectAtIndex:0] objectForKey:@"Title"]);            
-        }        
+            if (player.playbackState != MPMusicPlaybackStatePlaying) {
+                [player play];
+            }else {
+                if ([[player nowPlayingItem] valueForProperty:MPMediaItemPropertyTitle] != [[[visiblePinsArray objectAtIndex:nearestPinIndex] mediaDictArray]  objectAtIndex:0]) {
+                    [player play];
+                }
+            }
+        }
     }
+    //here is timing for playing
 }
 
 
